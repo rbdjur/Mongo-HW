@@ -1,1 +1,27 @@
-<p> {{title}} </p>
+{{#each articles}}
+<div class="container">
+    <p>
+        <h2> {{title}} </h2>
+    </p>
+    <a href="{{link}}"> {{link}}
+    </a>
+</div>
+
+  <button type="button" class="btn btn-primary btn-sm" id="note-button">Note</button>
+{{/each}} 
+
+
+
+
+
+{{!--
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-primary btn-sm" id="note-button">Note</button>
+    </div>
+</div> --}} {{!--
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-primary btn-sm" id="note-button">Save Article</button>
+    </div>
+</div> --}}
