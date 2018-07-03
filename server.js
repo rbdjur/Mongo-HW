@@ -57,6 +57,15 @@ app.get("/", function (req, res) {
     };
     res.render("index", context);
   });
+
+
+  // let yee = $("#comment-btn").on("click", function() {
+  //   console.log("inside comment-btn")
+  //   let comment = 
+  //   $("#text-box").val().trim();
+  //   console.log(text);
+  // db.data
+  // })
 });
 
 // 2. News Related to Scraper Bikes
@@ -98,10 +107,8 @@ app.get("/scrape", function (req, res) {
       //   console.log("This is stuff", info);
     });
     // res.json({ message: 'Succesfully Scraped' });
-        res.json({ articleInfo });
-        alert("Successfully Scraped");
-
-
+        // res.json({ articleInfo });
+        // res.json(articleInfo);
   });
 });
 
