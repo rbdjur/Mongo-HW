@@ -75,8 +75,6 @@ app.get("/articles", function (req, res) {
     // console.log("first article - Best Pizza " + dbData[0].title);
     // console.log("first article - id " + dbData[0]._id);
     // console.log("first article - url " + dbData[0].link);
-
-
     res.render("index", context);
   })
 });
