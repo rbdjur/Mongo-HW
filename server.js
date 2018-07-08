@@ -48,17 +48,14 @@ mongoose.connect(MONGODB_URI);
 // let db = mongojs(databaseUrl, collections);
 let db = require("./model");
 
-// This makes sure that any errors are logged if mongodb runs into an issue
-// db.on("error", function (error) {
-//   console.log("Database Error:", error);
-// });
+
 
 // Routes
 // 1. At the root path, send a simple hello world message to the browser using handlebars
 app.get("/articles", function (req, res) {
   console.log('getting stuffs + inside /');
 
-  db.Article.find({}).sort({date: -1}).then(function( dbData, err) {
+  db.Article.find({}).sort({ date: 1 }).then(function (dbData, err) {
     if (err) throw err;
 
     const context = {
@@ -70,26 +67,12 @@ app.get("/articles", function (req, res) {
     console.log(context);
     console.log("This is important", important);
 
-    // console.log("dbData._id " + dbData.link);
-
-    // console.log("first article - Best Pizza " + dbData[0].title);
-    // console.log("first article - id " + dbData[0]._id);
-    // console.log("first article - url " + dbData[0].link);
     res.render("index", context);
   })
 });
 
-
-  // let yee = $("#comment-btn").on("click", function() {
-  //   console.log("inside comment-btn")
-  //   let comment = 
-  //   $("#text-box").val().trim();
-  //   console.log(text);
-  // db.data
-  // })
-
 // 2. All new scraped data
-app.get("/scrape", function (req, res) { 
+app.get("/scrape", function (req, res) {
   console.log("Inside /scrape");
   // code for scraped articles
   axios.get("https://www.eastbaytimes.com").then(function (response) {
@@ -119,32 +102,32 @@ app.get("/scrape", function (req, res) {
       db.Article.create(info).then(function (dbNew) {
         console.log("LOOK!" + dbNew);
       })
-      .catch(function(err) {
-        return res.json(err);
-      });  
+        .catch(function (err) {
+          return res.json(err);
+        });
     });
 
     res.send("New Articles Scraped Into Database!");
-});
+  });
 });
 
 // #3. 
 // Route for grabbing a specific Article by id, populate it with it's note
-app.get("/articles/:id", function(req, res) {
+app.get("/articles/:id", function (req, res) {
   // let articleId = 
   // console.log("/scrape/:id context", );
-// console.log(_id);
+  // console.log(_id);
 
   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  db.Article.find({}).sort({date: -1})
-  // One({ _id: req.params.id })
+  db.Article.find({}).sort({ date: -1 })
+    // One({ _id: req.params.id })
     // ..and populate all of the notes associated with it
-    .populate("note")
-    .then(function(dbArticle) {
+    .populate("Note")
+    .then(function (dbArticle) {
       // If we were able to successfully find an Article with the given id, send it back to the client
       res.json(dbArticle[req.params.id]);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
@@ -152,48 +135,50 @@ app.get("/articles/:id", function(req, res) {
 
 // #4. 
 // Route for saving/updating an Article's associated Note
-app.post("/articles/:id", function(req, res) {
+app.post("/articles/:id", function (req, res) {
+  console.log("inside post of /articles/:id");
   // Create a new note and pass the req.body to the entry
   db.Note.create(req.body)
-    .then(function(dbNote) {
+    .then(function (dbNote) {
+      console.log("ad.Note.create", dbNote);
       // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
       return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
     })
-    .then(function(dbArticle) {
+    .then(function (dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
       res.json(dbArticle);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       // If an error occurred, send it to the client
       res.json(err);
     });
 });
 
 
-  
-  
 
-    // .catch(function(err) {
-    //   return res.json(err)
-    // })
 
-    // };
-    //   res.send(db.articles.find({})
-    // );
 
-    // const result = {};
+// .catch(function(err) {
+//   return res.json(err)
+// })
 
-    // result.title = title;
-    // result.link = link;
+// };
+//   res.send(db.articles.find({})
+// );
 
-    // db.articles.find(info).then(function(stuff) {
-    //   console.log("inside db.articles.insert function block");
-    //   console.log(stuff);
-    // }).catch(function(err) {
-    //   return res.json(err);
-    // });
+// const result = {};
+
+// result.title = title;
+// result.link = link;
+
+// db.articles.find(info).then(function(stuff) {
+//   console.log("inside db.articles.insert function block");
+//   console.log(stuff);
+// }).catch(function(err) {
+//   return res.json(err);
+// });
 
 // });
 // res.send("New Articles Scraped Into Databse!")
@@ -304,6 +289,6 @@ app.post("/articles/:id", function(req, res) {
 
 
 // Set the app to listen on port 3000
-app.listen(3000, function(){
+app.listen(3000, function () {
   console.log("App running on port 3000!");
 });

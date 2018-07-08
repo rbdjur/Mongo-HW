@@ -2,3 +2,21 @@
 background: chocolate;
 color: orange;
 }
+
+body {
+    background: rgb(173, 201, 119) !important;
+}
+
+#this {
+    color:white;
+    background: rgb(150, 115, 71);
+    text-align: center;
+}
+
+#jumbo {
+    text-align: center;
+}
+
+#link {
+    color:white
+}

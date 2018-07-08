@@ -1,40 +1,43 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script> 
-    
-    {{#each things}}
+ {{#each things}}
 <div class="container">
     <p>
-        https:localhost:3000/articles/{{@key}}
+        <i> Article #: {{@key}} </i>
     </p>
-    <p>
+    <p id="titleinput">
         <h2>" {{title}} "</h2>
     </p>
     <b>Article URL</b>
     <a href="{{link}}">
-    <br>{{link}}
+        <br>
+        <p id="link">{{link}}</p>
     </a>
-    <br>
-    <b>Article ID (copy and paste Article ID)</b> <p>{{_id}}</p>
-</div>
 
-    <!-- Modal -->
+    {{!--
     <div class="container">
         <div class="form-group">
-            <label form="exampleFormControlTextarea1">Leave a note</label>
-            <div class="container" id="notes" data-id="">
-                </div>
+            <label form="exampleFormControlTextarea1">STUFF</label>
         </div>
+    </div> --}}
+
+    <div id="notes" onclick="stuff()">
     </div>
+
+    <div id="articles">
+    </div>
+
+    <div id="titleinput">
+    </div>
+
+
 
     <div class="modal-footer">
         <div class="container">
             <div class="row">
                 <button type="button" class="btn btn-primary btn-sm" id="save-btn">Save Article</button>
             </div>
+
+
         </div>
-        {{!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-        <button type="button" class="btn btn-primary" id="note-btn">Post a note</button>
+        <button type="button" data-id="{{_id}}" class="btn btn-primary" id="note-btn">Post a note</button>
     </div>
     {{/each}}
