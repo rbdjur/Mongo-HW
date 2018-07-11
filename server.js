@@ -30,12 +30,12 @@ app.set("view engine", "handlebars");
 
 // The app name for this application on heroku is "pacific bayou"
 
-let MONGODB_URI = process.env.MONGOLAB_URI || "mongodb://localhost/mongoHeadlines";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect(MONGOLAB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 // let important;
 
@@ -68,6 +68,7 @@ app.get("/articles", function (req, res) {
     console.log("This is important", important);
 
     res.render("index", context);
+    // res.render("index");
   })
 });
 
@@ -292,3 +293,5 @@ app.post("/articles/:id", function (req, res) {
 app.listen(3000, function () {
   console.log("App running on port 3000!");
 });
+
+// app.listen(process.env.PORT || 3000);
