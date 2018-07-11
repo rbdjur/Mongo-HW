@@ -9,7 +9,7 @@ let logger = require("morgan");
 let router = express.Router();
 
 // create a port
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // Initialize Express
 let app = express();
@@ -30,12 +30,12 @@ app.set("view engine", "handlebars");
 
 // The app name for this application on heroku is "pacific bayou"
 
-let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+let MONGODB_URI = process.env.MONGOLAB_URI || "mongodb://localhost/mongoHeadlines";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGOLAB_URI);
 
 // let important;
 
