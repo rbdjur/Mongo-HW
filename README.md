@@ -29,3 +29,20 @@ Phase I - find title, id, and link.
 
 Phase II - form a div that the notes can exist
 
+07/10/2018
+
+Experience issues connecting to mongoDB.
+
+I edited the mongo connection accidentally by sticking the "MONGOLAB_AQUA_URI" that was provided by heroku in terminal when the app was created.  I set "MONGOLAB_AQUA_URI" =  mongoose.connect() and process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines" 
+
+This is troublesome because I was not direct;y connecting to the database provided by mongo
+
+
+
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGODB_URI);
+
